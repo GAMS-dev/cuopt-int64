@@ -20,23 +20,18 @@ jobs:
       - name: Install system dependencies
         run: |
           apt-get update
-          apt-get install -y wget
-          wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
-          dpkg -i cuda-keyring_1.1-1_all.deb
-          apt-get update
           apt-get install -y \
             python3-pip python3-dev python-is-python3 \
             build-essential ninja-build \
             libbz2-dev zlib1g-dev \
             libssl-dev libcurl4-openssl-dev \
-            git pkg-config tar \
+            git pkg-config tar wget \
             libtbb-dev \
             libboost-all-dev \
-            cudss
+            libcudss-dev-13-1
+          pip install cmake rapids-build-backend scikit-build-core pybind11 cython
           
       - name: Build Wheel
-        env:
-          cudss_DIR: /opt/cudss/lib/cmake/cudss
         run: |
           ./build.sh libmps_parser libcuopt cuopt
           
