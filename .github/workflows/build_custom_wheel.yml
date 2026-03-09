@@ -25,7 +25,7 @@ jobs:
           
       - name: Build Wheel
         run: |
-          ./build.sh cuopt
+          ./build.sh libmps_parser libcuopt cuopt
           
       - name: Upload Wheel as Artifact
         uses: actions/upload-artifact@v4
