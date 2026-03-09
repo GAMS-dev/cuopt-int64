@@ -1,0 +1,31 @@
+name: Build INT64 Wheel
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-wheel:
+    runs-on: ubuntu-latest
+    container: nvidia/cuda:12.2.2-devel-ubuntu22.04
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y python3-pip python3-dev build-essential ninja-build cmake
+          pip3 install scikit-build-core pybind11
+          
+      - name: Build Wheel
+        run: |
+          ./build.sh cuopt
+          
+      - name: Upload Wheel as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cuopt-int64-wheel
+          path: python/cuopt/dist/*.whl
