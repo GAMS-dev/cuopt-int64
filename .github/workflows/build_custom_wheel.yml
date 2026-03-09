@@ -25,7 +25,7 @@ jobs:
             build-essential ninja-build \
             libbz2-dev zlib1g-dev \
             libssl-dev libcurl4-openssl-dev \
-            git pkg-config libtbb-dev
+            git pkg-config libtbb-dev libboost-all-dev
           pip install cmake rapids-build-backend scikit-build-core pybind11 cython
           
       - name: Build Wheel
