@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           apt-get update
           apt-get install -y \
@@ -25,10 +25,19 @@ jobs:
             build-essential ninja-build \
             libbz2-dev zlib1g-dev \
             libssl-dev libcurl4-openssl-dev \
-            git pkg-config libtbb-dev libboost-all-dev
-          pip install cmake rapids-build-backend scikit-build-core pybind11 cython
+            git pkg-config wget tar \
+            libtbb-dev \
+            libboost-all-dev
+
+      - name: Install NVIDIA cuDSS
+        run: |
+          wget https://developer.download.nvidia.com/compute/cudss/redist/cudss/linux-x86_64/cudss-linux-x86_64-0.7.0.19_archive.tar.xz
+          mkdir -p /opt/cudss
+          tar -xf cudss-linux-x86_64-0.7.0.19_archive.tar.xz -C /opt/cudss --strip-components=1
           
       - name: Build Wheel
+        env:
+          cudss_DIR: /opt/cudss/lib/cmake/cudss
         run: |
           ./build.sh libmps_parser libcuopt cuopt
           
