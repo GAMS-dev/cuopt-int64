@@ -20,20 +20,19 @@ jobs:
       - name: Install system dependencies
         run: |
           apt-get update
+          apt-get install -y wget
+          wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+          dpkg -i cuda-keyring_1.1-1_all.deb
+          apt-get update
           apt-get install -y \
             python3-pip python3-dev python-is-python3 \
             build-essential ninja-build \
             libbz2-dev zlib1g-dev \
             libssl-dev libcurl4-openssl-dev \
-            git pkg-config wget tar \
+            git pkg-config tar \
             libtbb-dev \
-            libboost-all-dev
-
-      - name: Install NVIDIA cuDSS
-        run: |
-          wget https://developer.download.nvidia.com/compute/cudss/redist/cudss/linux-x86_64/cudss-linux-x86_64-0.7.0.19_archive.tar.xz
-          mkdir -p /opt/cudss
-          tar -xf cudss-linux-x86_64-0.7.0.19_archive.tar.xz -C /opt/cudss --strip-components=1
+            libboost-all-dev \
+            cudss
           
       - name: Build Wheel
         env:
