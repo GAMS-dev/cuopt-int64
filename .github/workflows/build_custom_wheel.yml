@@ -33,7 +33,7 @@ jobs:
           
       - name: Build Wheel
         run: |
-          ./build.sh libmps_parser libcuopt cuopt
+          ./build.sh libmps_parser libcuopt cuopt --skip-tests-build --cmake-args="-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF"
           
       - name: Upload Wheel as Artifact
         uses: actions/upload-artifact@v4

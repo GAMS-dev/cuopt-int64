@@ -348,6 +348,7 @@ if buildAll || hasArg libmps_parser; then
     cmake -DDEFINE_ASSERT=${DEFINE_ASSERT} \
           -DCMAKE_INSTALL_PREFIX="${INSTALL_PREFIX}" \
           "${CACHE_ARGS[@]}" \
+          "${EXTRA_CMAKE_ARGS[@]}" \
           "${REPODIR}"/cpp/libmps_parser/
 
     if hasArg -n; then

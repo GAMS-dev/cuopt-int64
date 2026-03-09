@@ -16,8 +16,8 @@
 
 #define CUOPT_INSTANTIATE_FLOAT  0
 #define CUOPT_INSTANTIATE_DOUBLE 1
-#define CUOPT_INSTANTIATE_INT32  0
-#define CUOPT_INSTANTIATE_INT64  1
+#define CUOPT_INSTANTIATE_INT32  1
+#define CUOPT_INSTANTIATE_INT64  0
 
 /* @brief LP/MIP parameter string constants */
 #define CUOPT_ABSOLUTE_DUAL_TOLERANCE         "absolute_dual_tolerance"
