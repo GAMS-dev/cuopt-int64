@@ -20,7 +20,12 @@ jobs:
       - name: Install dependencies
         run: |
           apt-get update
-          apt-get install -y python3-pip python3-dev build-essential ninja-build python-is-python3          
+          apt-get install -y \
+            python3-pip python3-dev python-is-python3 \
+            build-essential ninja-build \
+            libbz2-dev zlib1g-dev \
+            libssl-dev libcurl4-openssl-dev \
+            git pkg-config          
           pip install cmake rapids-build-backend scikit-build-core pybind11 cython
           
       - name: Build Wheel
