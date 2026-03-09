@@ -28,7 +28,7 @@ jobs:
             git pkg-config tar wget \
             libtbb-dev \
             libboost-all-dev \
-            libcudss-dev-13-1
+            cudss
           pip install cmake rapids-build-backend scikit-build-core pybind11 cython
           
       - name: Build Wheel
