@@ -21,7 +21,6 @@ jobs:
         run: |
           apt-get update
           apt-get install -y python3-pip python3-dev build-essential ninja-build python-is-python3          
-          python -m pip install --upgrade pip
           pip install cmake rapids-build-backend scikit-build-core pybind11 cython
           
       - name: Build Wheel
