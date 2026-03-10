@@ -21,10 +21,12 @@ jobs:
 
       - name: Build Wheel
         shell: bash -el {0}
+        env:
+          EXTRA_CMAKE_ARGS: "-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF"
         run: |
           ./build.sh libmps_parser libcuopt cuopt \
             --skip-tests-build \
-            --cmake-args=\"-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF\"
+            --cmake-args "${EXTRA_CMAKE_ARGS}"
 
       - name: Upload Wheel as Artifact
         uses: actions/upload-artifact@v4
