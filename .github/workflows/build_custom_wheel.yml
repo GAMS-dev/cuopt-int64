@@ -33,6 +33,10 @@ jobs:
           pip install cmake rapids-build-backend scikit-build-core pybind11 cython
           
       - name: Build Wheel
+        env:
+          cudss_DIR: /opt/cudss/lib/cmake/cudss
+          CUDA_HOME: /usr/local/cuda
+          CUDACXX: /usr/local/cuda/bin/nvcc
         run: |
           ./build.sh libmps_parser libcuopt cuopt --skip-tests-build --cmake-args=\"-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF\"
           
