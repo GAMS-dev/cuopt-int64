@@ -9,37 +9,23 @@ on:
 jobs:
   build-wheel:
     runs-on: ubuntu-latest
-    container: nvidia/cuda:13.1.1-devel-ubuntu24.04
-
-    env:
-      PIP_BREAK_SYSTEM_PACKAGES: 1
-    
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Install system dependencies
-        run: |
-          apt-get clean
-          apt-get update -y
-          apt-get install -y \
-            python3-pip python3-dev python-is-python3 \
-            build-essential ninja-build \
-            libbz2-dev zlib1g-dev \
-            libssl-dev libcurl4-openssl-dev \
-            git pkg-config tar wget \
-            libtbb-dev \
-            libboost-all-dev \
-            cudss
-          pip install cmake rapids-build-backend scikit-build-core pybind11 cython
-          
+
+      - name: Set up Build Environment
+        uses: mamba-org/setup-micromamba@v1
+        with:
+          environment-file: conda/environments/all_cuda-12.6_arch-x86_64.yaml
+          environment-name: cuopt_build
+          cache-environment: true
+
       - name: Build Wheel
-        env:
-          cudss_DIR: /opt/cudss/lib/cmake/cudss
-          CUDA_HOME: /usr/local/cuda
-          CUDACXX: /usr/local/cuda/bin/nvcc
+        shell: bash -el {0}
         run: |
-          ./build.sh libmps_parser libcuopt cuopt --skip-tests-build --cmake-args=\"-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF\"
-          
+          ./build.sh libmps_parser libcuopt cuopt \
+            --skip-tests-build \
+            --cmake-args="-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF"
+
       - name: Upload Wheel as Artifact
         uses: actions/upload-artifact@v4
         with:
