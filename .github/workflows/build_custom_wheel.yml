@@ -15,7 +15,7 @@ jobs:
       - name: Set up Build Environment
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: conda/environments/all_cuda-12.6_arch-x86_64.yaml
+          environment-file: conda/environments/all_cuda-131_arch-x86_64.yaml
           environment-name: cuopt_build
           cache-environment: true
 
