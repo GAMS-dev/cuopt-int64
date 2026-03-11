@@ -22,10 +22,10 @@ jobs:
         run: |
           ./build.sh libmps_parser libcuopt cuopt --skip-tests-build --cmake-args=\"-DCUOPT_INSTANTIATE_INT64=ON -DCUOPT_INSTANTIATE_INT32=OFF\"
           cd python/cuopt
-          python -m pip wheel . -w dist --no-deps --no-build-isolation
+          python -m pip wheel . -w dist_thin --no-deps --no-build-isolation
           python -m pip install auditwheel
           mkdir -p dist
-          auditwheel repair dist_thin/*.whl --plat manylinux_2_24_x86_64 -w dist/
+          auditwheel repair dist_thin/*.whl --plat manylinux_2_39_x86_64 -w dist/
 
       - name: Upload Wheel as Artifact
         uses: actions/upload-artifact@v4
