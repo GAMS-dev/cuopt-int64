@@ -25,7 +25,7 @@ jobs:
           python -m pip wheel . -w dist --no-deps --no-build-isolation
           python -m pip install auditwheel
           mkdir -p dist
-          auditwheel repair dist_thin/*.whl --plat manylinux_2_24_x86_64-w dist/
+          auditwheel repair dist_thin/*.whl --plat manylinux_2_24_x86_64 -w dist/
 
       - name: Upload Wheel as Artifact
         uses: actions/upload-artifact@v4
